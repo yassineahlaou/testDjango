@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h1 style="text-align:center">{{art.title}}</h1>
+<br>
+<div style="text-align:center">
+<img src="{{art.image.url}}" >
+    </div>
+<br>
+<p>{{art.body|safe}}</p>
+
+<br>
+
+{% endblock %}

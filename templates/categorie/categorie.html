@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{%  if list_category %}
+<h1>{{cats}}</h1>
+<div class="container">
+
+    <div class="row">
+      {% for post in  list_category %}
+        <div class="col-sm-6 col-lg-3 py-2">
+            <div class="card h-100">
+                <img class="card-img-top img-fluid" src="{{post.image.url}}" >
+                <div class="card-body">
+                    <h4 class="card-title">{{post.title}}</h4>
+                    <p class="card-text">Category : {{post.categorie}}</p>
+                    <p class="card-text"><small class="text-muted">Added : {{post.date_creation}}</small></p>
+                </div>
+                <a href="{% url 'article' post.pk %}" class="btn btn-primary">Read More !</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% else %}
+<h2> Sorry! There is no articles in this category yet ! Come back later ;)</h2>
+
+{% endif %}
+
+
+<!--<br>
+{{ list_category}} <br>
+Has previous : {{ list_category.has_previous}}<br>
+Has next : {{ list_category.has_next}}<br>
+current  : {{ list_category.number}}<br>
+total : {{ list_category.paginator.num_pages}}<br>
+-->
+<hr>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+
+
+{% if list_category.has_previous %}
+<li class="page-item"><a <a class="page-link" href="?page=1">&laquo First</a></li>
+<li class="page-item"><a <a class="page-link" href="?page={{ list_category.previous_page_number}}">Previous</a></li>
+{% endif %}
+<li class="page-item"><a href="#" <a class="page-link">Page {{ list_category.number }} of {{ list_category.paginator.num_pages}}</a></li>
+{% if  list_category.has_next %}
+
+<li class="page-item"><a <a class="page-link" href="?page={{ list_category.next_page_number}}">Next</a></li>
+
+<li class="page-item"><a <a class="page-link" href="?page={{ list_category.paginator.num_pages}}">Last &raquo</a></li>
+{% endif %}
+</ul>
+</nav>
+{% endblock %}
